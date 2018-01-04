@@ -40,14 +40,16 @@ CONFIG_HORIZON_INSTALL=y
 # Specify 'y' to install OpenStack Object Storage (swift). ['y', 'n']
 CONFIG_SWIFT_INSTALL=y
 
-# Specify 'y' to install OpenStack Metering (ceilometer). Note this
-# will also automatically install gnocchi service and configures it as
-# the metrics backend. ['y', 'n']
+# Specify 'y' to install OpenStack Metering (ceilometer). ['y', 'n']
 CONFIG_CEILOMETER_INSTALL=y
 
 # Specify 'y' to install OpenStack Telemetry Alarming (Aodh). Note
 # Aodh requires Ceilometer to be installed as well. ['y', 'n']
 CONFIG_AODH_INSTALL=y
+
+# Specify 'y' to install OpenStack Metering as a Service (gnocchi).
+# ['y', 'n']
+CONFIG_GNOCCHI_INSTALL=y
 
 # Specify 'y' to install OpenStack Events Service (panko). ['y', 'n']
 CONFIG_PANKO_INSTALL=n
@@ -91,14 +93,14 @@ CONFIG_DEBUG_MODE=n
 
 # Server on which to install OpenStack services specific to the
 # controller role (for example, API servers or dashboard).
-CONFIG_CONTROLLER_HOST=192.168.1.2
+CONFIG_CONTROLLER_HOST=10.0.0.21
 
 # List the servers on which to install the Compute service.
-CONFIG_COMPUTE_HOSTS=192.168.1.2
+CONFIG_COMPUTE_HOSTS=10.0.0.21
 
 # List of servers on which to install the network service such as
 # Compute networking (nova network) or OpenStack Networking (neutron).
-CONFIG_NETWORK_HOSTS=192.168.1.2
+CONFIG_NETWORK_HOSTS=10.0.0.21
 
 # Specify 'y' if you want to use VMware vCenter as hypervisor and
 # storage; otherwise, specify 'n'. ['y', 'n']
@@ -134,11 +136,11 @@ CONFIG_VCENTER_CLUSTER_NAMES=
 
 # (Unsupported!) Server on which to install OpenStack services
 # specific to storage servers such as Image or Block Storage services.
-CONFIG_STORAGE_HOST=192.168.1.2
+CONFIG_STORAGE_HOST=10.0.0.21
 
 # (Unsupported!) Server on which to install OpenStack services
 # specific to OpenStack Data Processing (sahara).
-CONFIG_SAHARA_HOST=192.168.1.2
+CONFIG_SAHARA_HOST=10.0.0.21
 
 # Comma-separated list of URLs for any additional yum repositories,
 # to use for installation.
@@ -247,13 +249,13 @@ CONFIG_SSL_CERT_DIR=~/packstackca/
 CONFIG_SSL_CACERT_SELFSIGN=y
 
 # Enter the ssl certificates subject country.
-CONFIG_SSL_CERT_SUBJECT_C=US
+CONFIG_SSL_CERT_SUBJECT_C=--
 
 # Enter the ssl certificates subject state.
-CONFIG_SSL_CERT_SUBJECT_ST=Massachusetts
+CONFIG_SSL_CERT_SUBJECT_ST=State
 
 # Enter the ssl certificates subject location.
-CONFIG_SSL_CERT_SUBJECT_L=Randolph
+CONFIG_SSL_CERT_SUBJECT_L=City
 
 # Enter the ssl certificates subject organization.
 CONFIG_SSL_CERT_SUBJECT_O=openstack
@@ -262,16 +264,16 @@ CONFIG_SSL_CERT_SUBJECT_O=openstack
 CONFIG_SSL_CERT_SUBJECT_OU=packstack
 
 # Enter the ssl certificates subject common name.
-CONFIG_SSL_CERT_SUBJECT_CN=saturn.local
+CONFIG_SSL_CERT_SUBJECT_CN=localhost.localdomain
 
-CONFIG_SSL_CERT_SUBJECT_MAIL=admin@saturn.local
+CONFIG_SSL_CERT_SUBJECT_MAIL=admin@localhost.localdomain
 
 # Service to be used as the AMQP broker. Allowed values are: rabbitmq
 # ['rabbitmq']
 CONFIG_AMQP_BACKEND=rabbitmq
 
 # IP address of the server on which to install the AMQP service.
-CONFIG_AMQP_HOST=192.168.1.2
+CONFIG_AMQP_HOST=10.0.0.21
 
 # Specify 'y' to enable SSL for the AMQP service. ['y', 'n']
 CONFIG_AMQP_ENABLE_SSL=n
@@ -293,17 +295,17 @@ CONFIG_AMQP_AUTH_PASSWORD=PW_PLACEHOLDER
 # installation was not specified in CONFIG_MARIADB_INSTALL, specify
 # the IP address of an existing database server (a MariaDB cluster can
 # also be specified).
-CONFIG_MARIADB_HOST=192.168.1.2
+CONFIG_MARIADB_HOST=10.0.0.21
 
 # User name for the MariaDB administrative user.
 CONFIG_MARIADB_USER=root
 
 # Password for the MariaDB administrative user.
-CONFIG_MARIADB_PW=creators1
+CONFIG_MARIADB_PW=c173e80901c24e5f
 
 # Password to use for the Identity service (keystone) to access the
 # database.
-CONFIG_KEYSTONE_DB_PW=quality
+CONFIG_KEYSTONE_DB_PW=5ad7b18c2e724ee4
 
 # Enter y if cron job for removing soft deleted DB rows should be
 # created.
@@ -314,20 +316,20 @@ CONFIG_KEYSTONE_DB_PURGE_ENABLE=True
 CONFIG_KEYSTONE_REGION=RegionOne
 
 # Token to use for the Identity service API.
-CONFIG_KEYSTONE_ADMIN_TOKEN=1d4eea39f1fd4f16b682fff13acff52d
+CONFIG_KEYSTONE_ADMIN_TOKEN=3cae4bd332a642a0ab37f693730ae408
 
 # Email address for the Identity service 'admin' user.  Defaults to
-CONFIG_KEYSTONE_ADMIN_EMAIL=rmattier@gmail.com
+CONFIG_KEYSTONE_ADMIN_EMAIL=root@localhost
 
 # User name for the Identity service 'admin' user.  Defaults to
 # 'admin'.
 CONFIG_KEYSTONE_ADMIN_USERNAME=admin
 
 # Password to use for the Identity service 'admin' user.
-CONFIG_KEYSTONE_ADMIN_PW=quality
+CONFIG_KEYSTONE_ADMIN_PW=4fb6e71162b4470d
 
 # Password to use for the Identity service 'demo' user.
-CONFIG_KEYSTONE_DEMO_PW=quality
+CONFIG_KEYSTONE_DEMO_PW=325b700db9314a77
 
 # Identity service API version string. ['v2.0', 'v3']
 CONFIG_KEYSTONE_API_VERSION=v3
@@ -341,7 +343,7 @@ CONFIG_KEYSTONE_TOKEN_FORMAT=FERNET
 CONFIG_KEYSTONE_IDENTITY_BACKEND=sql
 
 # URL for the Identity service LDAP backend.
-CONFIG_KEYSTONE_LDAP_URL=ldap://192.168.1.2
+CONFIG_KEYSTONE_LDAP_URL=ldap://10.0.0.21
 
 # User DN for the Identity service LDAP backend.  Used to bind to the
 # LDAP server if the LDAP server does not allow anonymous
@@ -510,22 +512,22 @@ CONFIG_KEYSTONE_LDAP_TLS_REQ_CERT=demand
 
 # Password to use for the Image service (glance) to access the
 # database.
-CONFIG_GLANCE_DB_PW=quality
+CONFIG_GLANCE_DB_PW=f212dff68a4f43a4
 
 # Password to use for the Image service to authenticate with the
 # Identity service.
-CONFIG_GLANCE_KS_PW=quality
+CONFIG_GLANCE_KS_PW=8e776068a0ef44c8
 
 # Storage backend for the Image service (controls how the Image
 # service stores disk images). Valid options are: file or swift
 # (Object Storage). The Object Storage service must be enabled to use
 # it as a working backend; otherwise, Packstack falls back to 'file'.
 # ['file', 'swift']
-CONFIG_GLANCE_BACKEND=swift
+CONFIG_GLANCE_BACKEND=file
 
 # Password to use for the Block Storage service (cinder) to access
 # the database.
-CONFIG_CINDER_DB_PW=quality
+CONFIG_CINDER_DB_PW=ae00d5fa420741b0
 
 # Enter y if cron job for removing soft deleted DB rows should be
 # created.
@@ -533,7 +535,7 @@ CONFIG_CINDER_DB_PURGE_ENABLE=True
 
 # Password to use for the Block Storage service to authenticate with
 # the Identity service.
-CONFIG_CINDER_KS_PW=quality
+CONFIG_CINDER_KS_PW=f21355b9071645a2
 
 # Storage backend to use for the Block Storage service; valid options
 # are: lvm, gluster, nfs, vmdk, netapp, solidfire. ['lvm', 'gluster',
@@ -549,14 +551,14 @@ CONFIG_CINDER_BACKEND=lvm
 CONFIG_CINDER_VOLUMES_CREATE=y
 
 # Specify a custom name for the lvm cinder volume group
-CONFIG_CINDER_VOLUME_NAME=cinder-volumes
+CONFIG_CINDER_VOLUME_NAME=vg00
 
 # Size of Block Storage volumes group. Actual volume size will be
 # extended with 3% more space for VG metadata. Remember that the size
 # of the volume group will restrict the amount of disk space that you
 # can expose to Compute instances, and that the specified amount must
 # be available on the device used for /var/lib/cinder.
-CONFIG_CINDER_VOLUMES_SIZE=250G
+CONFIG_CINDER_VOLUMES_SIZE=500G
 
 # A single or comma-separated list of Red Hat Storage (gluster)
 # volume shares to mount. Example: 'ip-address:/vol-name', 'domain
@@ -714,11 +716,11 @@ CONFIG_NOVA_DB_PURGE_ENABLE=True
 
 # Password to use for the Compute service (nova) to access the
 # database.
-CONFIG_NOVA_DB_PW=quality
+CONFIG_NOVA_DB_PW=8c7550c188514f7b
 
 # Password to use for the Compute service to authenticate with the
 # Identity service.
-CONFIG_NOVA_KS_PW=quality
+CONFIG_NOVA_KS_PW=72ca02774f7f4264
 
 # Whether or not Packstack should manage a default initial set of
 # Nova flavors. Defaults to 'y'.
@@ -730,7 +732,7 @@ CONFIG_NOVA_SCHED_CPU_ALLOC_RATIO=16.0
 
 # Overcommitment ratio for virtual to physical RAM. Specify 1.0 to
 # disable RAM overcommitment.
-CONFIG_NOVA_SCHED_RAM_ALLOC_RATIO=3.0
+CONFIG_NOVA_SCHED_RAM_ALLOC_RATIO=1.5
 
 # Protocol used for instance migration. Valid options are: ssh and
 # tcp. Note that the tcp protocol is not encrypted, so it is insecure.
@@ -764,11 +766,11 @@ CONFIG_NOVA_LIBVIRT_VIRT_TYPE=%{::default_hypervisor}
 
 # Password to use for OpenStack Networking (neutron) to authenticate
 # with the Identity service.
-CONFIG_NEUTRON_KS_PW=quality
+CONFIG_NEUTRON_KS_PW=79043aace8224d4d
 
 # The password to use for OpenStack Networking to access the
 # database.
-CONFIG_NEUTRON_DB_PW=quality
+CONFIG_NEUTRON_DB_PW=9b270871571e4a1e
 
 # The name of the Open vSwitch bridge (or empty for linuxbridge) for
 # the OpenStack Networking L3 agent to use for external  traffic.
@@ -777,11 +779,11 @@ CONFIG_NEUTRON_DB_PW=quality
 CONFIG_NEUTRON_L3_EXT_BRIDGE=br-ex
 
 # Password for the OpenStack Networking metadata agent.
-CONFIG_NEUTRON_METADATA_PW=quality
+CONFIG_NEUTRON_METADATA_PW=6d5329e4aff042bf
 
 # Specify 'y' to install OpenStack Networking's Load-Balancing-
 # as-a-Service (LBaaS). ['y', 'n']
-CONFIG_LBAAS_INSTALL=y
+CONFIG_LBAAS_INSTALL=n
 
 # Specify 'y' to install OpenStack Networking's L3 Metering agent
 # ['y', 'n']
@@ -798,20 +800,20 @@ CONFIG_NEUTRON_VPNAAS=n
 # Comma-separated list of network-type driver entry points to be
 # loaded from the neutron.ml2.type_drivers namespace. ['local',
 # 'flat', 'vlan', 'gre', 'vxlan', 'geneve']
-CONFIG_NEUTRON_ML2_TYPE_DRIVERS=vxlan,flat,local
+CONFIG_NEUTRON_ML2_TYPE_DRIVERS=vxlan,flat
 
 # Comma-separated, ordered list of network types to allocate as
 # tenant networks. The 'local' value is only useful for single-box
 # testing and provides no connectivity between hosts. ['local',
 # 'vlan', 'gre', 'vxlan', 'geneve']
-CONFIG_NEUTRON_ML2_TENANT_NETWORK_TYPES=vxlan,local,vlan
+CONFIG_NEUTRON_ML2_TENANT_NETWORK_TYPES=vxlan
 
 # Comma-separated ordered list of networking mechanism driver entry
 # points to be loaded from the neutron.ml2.mechanism_drivers
 # namespace. ['logger', 'test', 'linuxbridge', 'openvswitch',
 # 'hyperv', 'ncs', 'arista', 'cisco_nexus', 'mlnx', 'l2population',
 # 'sriovnicswitch', 'ovn']
-CONFIG_NEUTRON_ML2_MECHANISM_DRIVERS=linuxbridge
+CONFIG_NEUTRON_ML2_MECHANISM_DRIVERS=openvswitch
 
 # Comma-separated list of physical_network names with which flat
 # networks can be created. Use * to allow flat networks with arbitrary
@@ -843,7 +845,7 @@ CONFIG_NEUTRON_ML2_VNI_RANGES=10:100
 
 # Name of the L2 agent to be used with OpenStack Networking.
 # ['linuxbridge', 'openvswitch', 'ovn']
-CONFIG_NEUTRON_L2_AGENT=linuxbridge
+CONFIG_NEUTRON_L2_AGENT=openvswitch
 
 # Comma separated list of supported PCI vendor devices defined by
 # vendor_id:product_id according to the PCI ID Repository.
@@ -964,11 +966,11 @@ CONFIG_NEUTRON_OVN_TUNNEL_SUBNETS=
 
 # Password to use for the OpenStack File Share service (manila) to
 # access the database.
-CONFIG_MANILA_DB_PW=creator
+CONFIG_MANILA_DB_PW=quality
 
 # Password to use for the OpenStack File Share service (manila) to
 # authenticate with the Identity service.
-CONFIG_MANILA_KS_PW=creator
+CONFIG_MANILA_KS_PW=quality
 
 # Backend for the OpenStack File Share service (manila); valid
 # options are: generic, netapp, glusternative, or glusternfs.
@@ -1118,7 +1120,7 @@ CONFIG_MANILA_GLUSTERFS_GANESHA_SERVER_IP=
 CONFIG_HORIZON_SSL=n
 
 # Secret key to use for Horizon Secret Encryption Key.
-CONFIG_HORIZON_SECRET_KEY=893cd3624d6d4935a6c5fa745d1f06a6
+CONFIG_HORIZON_SECRET_KEY=a1d44be67ed044dba858d33f2a547309
 
 # PEM-encoded certificate to be used for SSL connections on the https
 # server. To generate a certificate, leave blank.
@@ -1132,7 +1134,7 @@ CONFIG_HORIZON_SSL_CACERT=
 
 # Password to use for the Object Storage service to authenticate with
 # the Identity service.
-CONFIG_SWIFT_KS_PW=quality
+CONFIG_SWIFT_KS_PW=871b6b52e4fc41cc
 
 # Comma-separated list of devices to use as storage device for Object
 # Storage. Each entry must take the format /path/to/dev (for example,
@@ -1151,30 +1153,30 @@ CONFIG_SWIFT_STORAGE_ZONES=1
 CONFIG_SWIFT_STORAGE_REPLICAS=1
 
 # File system type for storage nodes. ['xfs', 'ext4']
-CONFIG_SWIFT_STORAGE_FSTYPE=ext4
+CONFIG_SWIFT_STORAGE_FSTYPE=xfs
 
 # Custom seed number to use for swift_hash_path_suffix in
 # /etc/swift/swift.conf. If you do not provide a value, a seed number
 # is automatically generated.
-CONFIG_SWIFT_HASH=095e83f03ec1419b
+CONFIG_SWIFT_HASH=ac13f5117f1b4b86
 
 # Size of the Object Storage loopback file storage device.
-CONFIG_SWIFT_STORAGE_SIZE=25G
+CONFIG_SWIFT_STORAGE_SIZE=40G
 
 # Password used by Orchestration service user to authenticate against
 # the database.
-CONFIG_HEAT_DB_PW=QUALITY
+CONFIG_HEAT_DB_PW=quality
 
 # Encryption key to use for authentication in the Orchestration
 # database (16, 24, or 32 chars).
-CONFIG_HEAT_AUTH_ENC_KEY=80da6f6d064e4f7a
+CONFIG_HEAT_AUTH_ENC_KEY=f70ab09260544646
 
 # Password to use for the Orchestration service to authenticate with
 # the Identity service.
-CONFIG_HEAT_KS_PW=QUALITY
+CONFIG_HEAT_KS_PW=quality
 
 # Specify 'y' to install the Orchestration CloudWatch API. ['y', 'n']
-CONFIG_HEAT_CLOUDWATCH_INSTALL=y
+CONFIG_HEAT_CLOUDWATCH_INSTALL=n
 
 # Specify 'y' to install the Orchestration CloudFormation API. ['y',
 # 'n']
@@ -1210,7 +1212,7 @@ CONFIG_PROVISION_IMAGE_NAME=cirros
 
 # A URL or local file location for an image to download and provision
 # in Glance (defaults to a URL for a recent "cirros" image).
-CONFIG_PROVISION_IMAGE_URL=http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
+CONFIG_PROVISION_IMAGE_URL=http://trunk.rdoproject.org/cirros-0.3.4-x86_64-disk.img
 
 # Format for the demo image (default "qcow2").
 CONFIG_PROVISION_IMAGE_FORMAT=qcow2
@@ -1228,15 +1230,15 @@ CONFIG_PROVISION_UEC_IMAGE_NAME=cirros-uec
 
 # URL of the kernel image copied to Glance image for uec image
 # (defaults to a URL for a recent "cirros" uec image).
-CONFIG_PROVISION_UEC_IMAGE_KERNEL_URL=http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-kernel
+CONFIG_PROVISION_UEC_IMAGE_KERNEL_URL=http://trunk.rdoproject.org/cirros-0.3.4-x86_64-kernel
 
 # URL of the ramdisk image copied to Glance image for uec image
 # (defaults to a URL for a recent "cirros" uec image).
-CONFIG_PROVISION_UEC_IMAGE_RAMDISK_URL=http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-initramfs
+CONFIG_PROVISION_UEC_IMAGE_RAMDISK_URL=http://trunk.rdoproject.org/cirros-0.3.4-x86_64-initramfs
 
 # URL of the disk image copied to Glance image for uec image
 # (defaults to a URL for a recent "cirros" uec image).
-CONFIG_PROVISION_UEC_IMAGE_DISK_URL=http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
+CONFIG_PROVISION_UEC_IMAGE_DISK_URL=http://trunk.rdoproject.org/cirros-0.3.4-x86_64-disk.img
 
 CONFIG_TEMPEST_HOST=
 
@@ -1284,21 +1286,21 @@ CONFIG_RUN_TEMPEST_TESTS=smoke
 # Specify 'y' to configure the Open vSwitch external bridge for an
 # all-in-one deployment (the L3 external bridge acts as the gateway
 # for virtual machines). ['y', 'n']
-CONFIG_PROVISION_OVS_BRIDGE=n
+CONFIG_PROVISION_OVS_BRIDGE=y
 
 # Password to use for Gnocchi to access the database.
-CONFIG_GNOCCHI_DB_PW=quality
+CONFIG_GNOCCHI_DB_PW=43a835cf2ed445e2
 
 # Password to use for Gnocchi to authenticate with the Identity
 # service.
-CONFIG_GNOCCHI_KS_PW=quality
+CONFIG_GNOCCHI_KS_PW=4d791d738be34531
 
 # Secret key for signing Telemetry service (ceilometer) messages.
-CONFIG_CEILOMETER_SECRET=e3bfe79b5e0a411a
+CONFIG_CEILOMETER_SECRET=98d97ea285154ebd
 
 # Password to use for Telemetry to authenticate with the Identity
 # service.
-CONFIG_CEILOMETER_KS_PW=quality
+CONFIG_CEILOMETER_KS_PW=b73f82a326644991
 
 # Ceilometer service name. ['httpd', 'ceilometer']
 CONFIG_CEILOMETER_SERVICE_NAME=httpd
@@ -1307,23 +1309,32 @@ CONFIG_CEILOMETER_SERVICE_NAME=httpd
 # ['redis', 'none']
 CONFIG_CEILOMETER_COORDINATION_BACKEND=redis
 
+# Backend driver for Telemetry's metering backend configuration.
+# ['database', 'gnocchi']
+CONFIG_CEILOMETER_METERING_BACKEND=database
+
+CONFIG_CEILOMETER_EVENTS_BACKEND=database
+
 # Whether to enable ceilometer middleware in swift proxy. By default
 # this should be false to avoid unnecessary load.
 CONFIG_ENABLE_CEILOMETER_MIDDLEWARE=n
 
+# IP address of the server on which to install MongoDB.
+CONFIG_MONGODB_HOST=10.0.0.21
+
 # IP address of the server on which to install the Redis server.
-CONFIG_REDIS_HOST=192.168.1.2
+CONFIG_REDIS_HOST=10.0.0.21
 
 # Port on which the Redis server listens.
 CONFIG_REDIS_PORT=6379
 
 # Password to use for Telemetry Alarming to authenticate with the
 # Identity service.
-CONFIG_AODH_KS_PW=quality
+CONFIG_AODH_KS_PW=5638c4d96e3c4780
 
 # Password to use for Telemetry Alarming (AODH) to access the
 # database.
-CONFIG_AODH_DB_PW=quality
+CONFIG_AODH_DB_PW=9863368e4aff467b
 
 # Password to use for Panko to access the database.
 CONFIG_PANKO_DB_PW=PW_PLACEHOLDER
