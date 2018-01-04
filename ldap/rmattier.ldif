@@ -1,0 +1,17 @@
+dn: uid=rmattier,ou=People,dc=mattier,dc=local
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: rmattier
+uid: rmattier
+uidNumber: 501
+gidNumber: 501
+homeDirectory: /home/rmattier
+loginShell: /bin/bash
+gecos: Rick Mattier
+userPassword: {SSHA}eR3WLBBwgkh+u6ps6M6aT/8xhFmAVEk8
+shadowLastChange: 17058
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7

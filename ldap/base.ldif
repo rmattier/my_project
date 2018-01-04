@@ -1,0 +1,17 @@
+dn: dc=mattier,dc=local
+dc: mattier
+objectClass: top
+objectClass: domain
+
+dn: cn=ldapadm ,dc=mattier,dc=local
+objectClass: organizationalRole
+cn: ldapadm
+description: LDAP Manager
+
+dn: ou=People,dc=mattier,dc=local
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,dc=mattier,dc=local
+objectClass: organizationalUnit
+ou: Group

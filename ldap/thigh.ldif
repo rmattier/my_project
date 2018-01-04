@@ -1,0 +1,17 @@
+dn: uid=thigh,ou=People,dc=mattier,dc=local
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: thigh
+uid: thigh
+uidNumber: 503
+gidNumber: 503
+homeDirectory: /home/thigh
+loginShell: /bin/bash
+gecos: Troy High
+userPassword: {SSHA}/9Tvg5upRu0KZkziihKbUkZavrsOMuiQ
+shadowLastChange: 17058
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7

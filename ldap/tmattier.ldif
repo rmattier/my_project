@@ -1,0 +1,17 @@
+dn: uid=tmattier,ou=People,dc=mattier,dc=local
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: tmattier
+uid: tmattier
+uidNumber: 502
+gidNumber: 502
+homeDirectory: /home/tmattier
+loginShell: /bin/bash
+gecos: Tori Mattier
+userPassword: {SSHA}eR3WLBBwgkh+u6ps6M6aT/8xhFmAVEk8
+shadowLastChange: 17058
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
