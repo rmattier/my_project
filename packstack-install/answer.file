@@ -804,7 +804,7 @@ CONFIG_NEUTRON_ML2_TYPE_DRIVERS=vxlan,flat,local
 # tenant networks. The 'local' value is only useful for single-box
 # testing and provides no connectivity between hosts. ['local',
 # 'vlan', 'gre', 'vxlan', 'geneve']
-CONFIG_NEUTRON_ML2_TENANT_NETWORK_TYPES=vxlan,local,vlan
+CONFIG_NEUTRON_ML2_TENANT_NETWORK_TYPES=vxlan,local
 
 # Comma-separated ordered list of networking mechanism driver entry
 # points to be loaded from the neutron.ml2.mechanism_drivers
