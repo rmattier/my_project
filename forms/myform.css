@@ -1,0 +1,21 @@
+# Site tutorial below.
+# https://product.hubspot.com/blog/how-to-build-a-sleek-animated-input-form-with-css
+#
+body
+  font-family: 'Open Sans', Helvetica
+label {
+  display: block;
+  padding-top: 20px;
+}
+label .label-text {
+  -moz-transform: translateY(-18px);
+  -ms-transform: translateY(-18px);
+  -webkit-transform: translateY(-18px);
+  transform: translateY(-18px);
+}
+label input:focus + .label-text {
+  -moz-transform: translateY(-36px);
+  -ms-transform: translateY(-36px);
+  -webkit-transform: translateY(-36px);
+  transform: translateY(-36px);
+}
