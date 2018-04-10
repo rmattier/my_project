@@ -1,0 +1,168 @@
+Get IDs of DHCP agents:
+[root@p2-stagestack02 cf7f4868-2132-44c6-9ef5-b99b665e3134]# neutron agent-list | grep -i dhcp
+| 284209dd-0ea4-4914-a8d3-61b8fe8d4a6f | DHCP agent         | p2-stagestack01.ad.prodcc.net  | :-)   | True           | neutron-dhcp-agent        |
+| 59092482-4622-4dd0-a350-7a9c758d8b91 | DHCP agent         | p2-stagestack02.ad.prodcc.net  | :-)   | True           | neutron-dhcp-agent        |
+
+
+Determine if network is scheduled to a specific DHCP agent:
+
+[root@p2-stagestack02 cf7f4868-2132-44c6-9ef5-b99b665e3134]# neutron net-list-on-dhcp-agent 284209dd-0ea4-4914-a8d3-61b8fe8d4a6f
++--------------------------------------+--------------------+------------------------------------------------------+
+| id                                   | name               | subnets                                              |
++--------------------------------------+--------------------+------------------------------------------------------+
+| 01f06c7e-61ee-44c1-8ef7-8ed325e787ba | net_paas_ext       | 00de618c-9cd6-4088-b70c-5903a1bea939 172.16.132.0/22 |
+| 0d816ff5-61a3-4150-86e1-e4316cd397a4 | net_paas_int       | 270abdaa-fa5a-4f9d-a381-b7e5dc6536c5 172.16.140.0/22 |
+| 26321761-dd63-4952-a4b1-bbaf4e2950a7 | net612             | 9b068225-668f-439e-945e-a9c99c801501 172.16.112.0/22 |
+| 29e1cfa6-eaba-4b58-97c3-fd7240fd754d | net611             | 650353dd-1deb-401c-b7b3-46ef27907d03 172.16.108.0/22 |
+| 70123737-11a6-47b7-94e6-65fd4e594f33 | P2_QA_Cassandra    | ab639bdd-60cd-4cee-a572-84efd8443c52 10.20.92.0/26   |
+| 7a5d8f15-df15-4349-bab9-16e188111d11 | net610             | 64b80241-4b04-47ad-9188-2875ebfc22a1 172.16.104.0/22 |
+| ad50844f-341c-4079-809b-9770f27863e6 | P2_Stage_Cassandra | 0790a0c8-5e40-4453-a72d-7177195a5e78 10.20.92.64/26  |
+| bcf8939a-c880-4c3a-a065-fcebca4b061b | net614             | 48bade37-9cc2-4388-95fd-08e25a6a7603 172.16.120.0/22 |
+| cf7f4868-2132-44c6-9ef5-b99b665e3134 | net616             | 418b2696-811e-4523-8e12-f4a421dd29f4 172.16.128.0/22 |
+| fa8ad2f7-6fea-40c5-beab-ac8bf1d340b6 | net613             | 6a82e52d-fc66-446d-b9cd-30e27f520891 172.16.116.0/22 |
++--------------------------------------+--------------------+------------------------------------------------------+
+[root@p2-stagestack02 cf7f4868-2132-44c6-9ef5-b99b665e3134]# neutron net-list-on-dhcp-agent 59092482-4622-4dd0-a350-7a9c758d8b91
++--------------------------------------+----------------------+------------------------------------------------------+
+| id                                   | name                 | subnets                                              |
++--------------------------------------+----------------------+------------------------------------------------------+
+| 01f06c7e-61ee-44c1-8ef7-8ed325e787ba | net_paas_ext         | 00de618c-9cd6-4088-b70c-5903a1bea939 172.16.132.0/22 |
+| 0d816ff5-61a3-4150-86e1-e4316cd397a4 | net_paas_int         | 270abdaa-fa5a-4f9d-a381-b7e5dc6536c5 172.16.140.0/22 |
+| 26321761-dd63-4952-a4b1-bbaf4e2950a7 | net612               | 9b068225-668f-439e-945e-a9c99c801501 172.16.112.0/22 |
+| 29e1cfa6-eaba-4b58-97c3-fd7240fd754d | net611               | 650353dd-1deb-401c-b7b3-46ef27907d03 172.16.108.0/22 |
+| 70123737-11a6-47b7-94e6-65fd4e594f33 | P2_QA_Cassandra      | ab639bdd-60cd-4cee-a572-84efd8443c52 10.20.92.0/26   |
+| 71020167-fb7c-4971-a40b-03e1d78478fd | P2_S1_Infrastructure | 54852690-23b4-4c47-aa44-b5f7b83b1480 10.120.72.0/24  |
+| 7a5d8f15-df15-4349-bab9-16e188111d11 | net610               | 64b80241-4b04-47ad-9188-2875ebfc22a1 172.16.104.0/22 |
+| ad50844f-341c-4079-809b-9770f27863e6 | P2_Stage_Cassandra   | 0790a0c8-5e40-4453-a72d-7177195a5e78 10.20.92.64/26  |
+| bcf8939a-c880-4c3a-a065-fcebca4b061b | net614               | 48bade37-9cc2-4388-95fd-08e25a6a7603 172.16.120.0/22 |
+| cf7f4868-2132-44c6-9ef5-b99b665e3134 | net616               | 418b2696-811e-4523-8e12-f4a421dd29f4 172.16.128.0/22 |
+| fa8ad2f7-6fea-40c5-beab-ac8bf1d340b6 | net613               | 6a82e52d-fc66-446d-b9cd-30e27f520891 172.16.116.0/22 |
++--------------------------------------+----------------------+------------------------------------------------------+
+
+Set the DHCP agent (on p2-stagestack02)  NOT to service net611:  (its not working anyways)
+neutron dhcp-agent-network-remove 59092482-4622-4dd0-a350-7a9c758d8b91 net611
+
+Now we need to find the port that was assigned to that DHCP agent and delete it.
+It shows a DOWN status.
+
+Determine 'Ports' used for DHCP on each server:
+Need to use UI
+Go to networks and select net611
+sort Ports by Device Attached
+Look for network:dhcp
+I found 2 ports that showed active on controllers that didnt even exist any longer.
+There was also 1 in a DOWN state.
+
+Get the port info to see if its on p2-stagestack02:
+[root@p2-stagestack02 /]# neutron port-show 5e3f6c42-c180-4004-a837-52d8d1ae92a3
++-----------------------+---------------------------------------------------------------------------------------+
+| Field                 | Value                                                                                 |
++-----------------------+---------------------------------------------------------------------------------------+
+| admin_state_up        | True                                                                                  |
+| allowed_address_pairs |                                                                                       |
+| binding:host_id       | p2-stagestack02.ad.prodcc.net                                                         |
+| binding:profile       | {}                                                                                    |
+| binding:vif_details   | {}                                                                                    |
+| binding:vif_type      | binding_failed                                                                        |
+| binding:vnic_type     | normal                                                                                |
+| device_id             | reserved_dhcp_port                                                                    |
+| device_owner          | network:dhcp                                                                          |
+| extra_dhcp_opts       |                                                                                       |
+| fixed_ips             | {"subnet_id": "650353dd-1deb-401c-b7b3-46ef27907d03", "ip_address": "172.16.111.142"} |
+| id                    | 5e3f6c42-c180-4004-a837-52d8d1ae92a3                                                  |
+| mac_address           | fa:16:3e:9e:da:1b                                                                     |
+| name                  |                                                                                       |
+| network_id            | 29e1cfa6-eaba-4b58-97c3-fd7240fd754d                                                  |
+| security_groups       |                                                                                       |
+| status                | DOWN                                                                                  |
+| tenant_id             | 73ea9f19863b473bb2e9fe668aebac45                                                      |
++-----------------------+---------------------------------------------------------------------------------------+
+
+
+Now, delete the port.  (it will be created automatically when we add the network back to the DHCP agent)
+[root@p2-stagestack02 /]# neutron port-delete 5e3f6c42-c180-4004-a837-52d8d1ae92a3
+Deleted port: 5e3f6c42-c180-4004-a837-52d8d1ae92a3
+
+
+Add the network back to the list service by the DHCP agent:
+[root@p2-stagestack02 /]# neutron dhcp-agent-network-add 59092482-4622-4dd0-a350-7a9c758d8b91 net611
+Added network net611 to DHCP agent
+
+Confirm that OVS created a flow for the network:
+root@p2-stagestack02 /]# ovs-ofctl dump-flows br-int | grep 611
+ cookie=0x0, duration=105.119s, table=0, n_packets=7072, n_bytes=601455, idle_age=0, priority=3,in_port=17,dl_vlan=611 actions=mod_vlan_vid:8,NORMAL
+
+
+Fix same issue on net_paas_ext:
+neutron dhcp-agent-network-remove 59092482-4622-4dd0-a350-7a9c758d8b91 net_paas_ext
+[root@p2-stagestack02 /]# neutron port-show 25764296-e61a-4fc4-b29d-01090db2957a
++-----------------------+--------------------------------------------------------------------------------------+
+| Field                 | Value                                                                                |
++-----------------------+--------------------------------------------------------------------------------------+
+| admin_state_up        | True                                                                                 |
+| allowed_address_pairs |                                                                                      |
+| binding:host_id       | p2-stagestack02.ad.prodcc.net                                                        |
+| binding:profile       | {}                                                                                   |
+| binding:vif_details   | {}                                                                                   |
+| binding:vif_type      | binding_failed                                                                       |
+| binding:vnic_type     | normal                                                                               |
+| device_id             | reserved_dhcp_port                                                                   |
+| device_owner          | network:dhcp                                                                         |
+| extra_dhcp_opts       |                                                                                      |
+| fixed_ips             | {"subnet_id": "00de618c-9cd6-4088-b70c-5903a1bea939", "ip_address": "172.16.132.47"} |
+| id                    | 25764296-e61a-4fc4-b29d-01090db2957a                                                 |
+| mac_address           | fa:16:3e:69:a8:40                                                                    |
+| name                  |                                                                                      |
+| network_id            | 01f06c7e-61ee-44c1-8ef7-8ed325e787ba                                                 |
+| security_groups       |                                                                                      |
+| status                | DOWN                                                                                 |
+| tenant_id             | 1b0750923db64826b2529e77d6f0e1a0                                                     |
++-----------------------+--------------------------------------------------------------------------------------+
+[root@p2-stagestack02 /]# neutron port-delete 25764296-e61a-4fc4-b29d-01090db2957a
+Deleted port: 25764296-e61a-4fc4-b29d-01090db2957a
+[root@p2-stagestack02 /]# neutron dhcp-agent-network-add 59092482-4622-4dd0-a350-7a9c758d8b91 net_paas_ext
+Added network net_paas_ext to DHCP agent
+
+[root@p2-stagestack02 /]# ovs-ofctl dump-flows br-int | grep 617
+ cookie=0x0, duration=95.354s, table=0, n_packets=337, n_bytes=29331, idle_age=0, priority=3,in_port=17,dl_vlan=617 actions=mod_vlan_vid:9,NORMAL
+
+
+Fix issue on net_paas_int:
+[root@p2-stagestack02 /]# neutron dhcp-agent-network-remove 59092482-4622-4dd0-a350-7a9c758d8b91 net_paas_int
+Removed network net_paas_int from DHCP agent
+
+[root@p2-stagestack02 /]# neutron port-show 8bdd05dd-ee86-439c-b261-774e9271cc74
++-----------------------+--------------------------------------------------------------------------------------+
+| Field                 | Value                                                                                |
++-----------------------+--------------------------------------------------------------------------------------+
+| admin_state_up        | True                                                                                 |
+| allowed_address_pairs |                                                                                      |
+| binding:host_id       | p2-stagestack02.ad.prodcc.net                                                        |
+| binding:profile       | {}                                                                                   |
+| binding:vif_details   | {}                                                                                   |
+| binding:vif_type      | binding_failed                                                                       |
+| binding:vnic_type     | normal                                                                               |
+| device_id             | reserved_dhcp_port                                                                   |
+| device_owner          | network:dhcp                                                                         |
+| extra_dhcp_opts       |                                                                                      |
+| fixed_ips             | {"subnet_id": "270abdaa-fa5a-4f9d-a381-b7e5dc6536c5", "ip_address": "172.16.140.35"} |
+| id                    | 8bdd05dd-ee86-439c-b261-774e9271cc74                                                 |
+| mac_address           | fa:16:3e:a3:20:14                                                                    |
+| name                  |                                                                                      |
+| network_id            | 0d816ff5-61a3-4150-86e1-e4316cd397a4                                                 |
+| security_groups       |                                                                                      |
+| status                | DOWN                                                                                 |
+| tenant_id             | 1b0750923db64826b2529e77d6f0e1a0                                                     |
++-----------------------+--------------------------------------------------------------------------------------+
+[root@p2-stagestack02 /]# neutron port-delete 8bdd05dd-ee86-439c-b261-774e9271cc74
+Deleted port: 8bdd05dd-ee86-439c-b261-774e9271cc74
+
+[root@p2-stagestack02 /]# neutron dhcp-agent-network-add 59092482-4622-4dd0-a350-7a9c758d8b91 net_paas_int
+Added network net_paas_int to DHCP agent
+
+[root@p2-stagestack02 /]# ovs-ofctl dump-flows br-int | grep 619
+ cookie=0x0, duration=6.601s, table=0, n_packets=16, n_bytes=1590, idle_age=0, priority=3,in_port=17,dl_vlan=619 actions=mod_vlan_vid:10,NORMAL
+
+
+
+
+
