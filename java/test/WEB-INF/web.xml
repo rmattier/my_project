@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<web-app>
+  <servlet>
+    <servlet-name>HelloWorld</servlet-name>
+    <servlet-class>HelloWorld</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetCustomer</servlet-name>
+    <servlet-class>GetCustomer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCustomer</servlet-name>
+    <url-pattern>/customer</url-pattern>
+  </servlet-mapping>
+</web-app>
