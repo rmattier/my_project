@@ -1,0 +1,14 @@
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_rmem = 4096 87380 16777216
+net.ipv4.tcp_wmem = 4096 65536 16777216
+net.ipv4.tcp_keepalive_intvl = 75
+net.ipv4.tcp_keepalive_time = 90
+net.ipv4.tcp_keepalive_probes = 9
+net.bridge.bridge-nf-call-ip6tables = 0
+net.ipv4.conf.all.rp_filter = 0
+net.bridge.bridge-nf-call-arptables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.ipv4.conf.default.rp_filter = 0
