@@ -1,0 +1,76 @@
+{
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "http://localhost/CentOS-7-x86_64-Minimal-1708.iso",
+      "iso_checksum": "5848f2fd31c7acf3811ad88eaca6f4aa",
+      "iso_checksum_type": "md5",
+      "output_directory": "output_centos_tdhtest",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 5000,
+      "format": "qcow2",
+      "headless": false,
+      "accelerator": "kvm",
+      "http_directory": "httpdir",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "kickstart",
+      "ssh_port": 22,
+      "ssh_timeout": "9000s",
+      "vm_name": "centOS-7_new.qcow2",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<tab>text ks=http://544082-mitll.llan.ll.mit.edu/centos-7-ks.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+      ],
+      "boot_wait": "4s",
+      "guest_os_type": "Centos_7",
+      "http_directory": "http",
+      "iso_checksum": "5848f2fd31c7acf3811ad88eaca6f4aa",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://544082-mitll.llan.ll.mit.edu/CentOS-7-x86_64-Minimal-1708.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "headless": false,
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ]
+    }
+  ],
+  "post-processors": ["vagrant"]
+}
