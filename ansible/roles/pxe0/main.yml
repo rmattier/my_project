@@ -1,0 +1,4 @@
+---
+task:
+  - name Dropping need kickstart files on server.
+    file: state=touch name=/tmp/testing.txt

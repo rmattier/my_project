@@ -1,0 +1,7 @@
+---
+- hosts: icinga_server
+
+  roles: 
+    - webservers
+    - dbservers
+    - icinga2

@@ -1,0 +1,9 @@
+---
+- name: Installing Apache(httpd) Webserver.
+  yum: name=httpd state=present
+  #yum: name = {{ item }} state=present
+  #with_items:
+  #   - httpd
+
+- name: http service state.
+  service: name=httpd state=started enabled=yes

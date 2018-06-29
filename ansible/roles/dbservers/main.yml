@@ -1,0 +1,4 @@
+---
+task:
+  - name Testing stuff.
+    file: state=touch name=/tmp/testing.txt
