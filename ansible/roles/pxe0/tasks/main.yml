@@ -1,0 +1,18 @@
+- name: copying pxeboot files to their correct locations.
+  copy: 
+        src: "{{role_path}}/files/01-7c-fe-90-17-0a-50.nfs" 
+        dest: /var/lib/tftpboot/01-7c-fe-90-17-0a-50.nfs
+        mode: u=rwx,g=rx,o=rx
+
+- name: copying More pxeboot files.
+  copy: 
+        src: "{{role_path}}/files/01-7c-fe-90-17-0a-50.ram" 
+        dest: /var/lib/tftpboot/01-7c-fe-90-17-0a-50.ram
+        mode: u=rwx,g=rx,o=rx
+
+- name: copying More pxeboot files.
+  copy: 
+        src: "{{role_path}}/files/01-7c-fe-90-17-0a-50" 
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-7c-fe-90-17-0a-50
+        mode: u=rwx,g=rx,o=rx
+   

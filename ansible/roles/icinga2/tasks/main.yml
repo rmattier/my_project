@@ -1,0 +1,73 @@
+---
+
+- name: Make sure the epel repo is installed.
+  yum:
+    name: "epel-release"
+    state: present
+- name: Install php components.
+  yum: 
+    name: 
+      - rh-php71-php-mysqlnd
+      - rh-php71-php-cli
+      - rh-php71-php-common 
+      - rh-php71-php-fpm 
+      - rh-php71-php-pgsql 
+      - rh-php71-php-ldap 
+      - rh-php71-php-intl 
+      - rh-php71-php-xml 
+      - rh-php71-php-gd 
+      - rh-php71-php-pdo 
+      - rh-php71-php-mbstring 
+
+- name: Change the timezone in php.ini file to America/New_York
+  lineinfile: 
+     path: /etc/opt/rh/rh-php71/php.ini
+     regexp: ';date.timezone'
+     line: 'date.timezone = America/New_York'
+
+- name: Copying icinga2 yum repo package.
+  copy:
+    src: /etc/ansible/roles/icinga2/files/icinga-rpm-release-7-latest.noarch.rpm
+    dest: "/tmp/icinga-rpm-release-7-latest.noarch.rpm"
+    mode: "0755"
+    state: present
+
+- name: Installing the icinga2 yum repo.
+  yum:  
+    name: /tmp/icinga-rpm-release-7-latest.noarch.rpm
+
+- name: Updating the Icinga2 repo with proxy info.
+  lineinfile: 
+    path: /etc/yum.repos.d/ICINGA-release.repo
+    #regexp: '^name=ICINGA'
+    line: proxy=http://llproxy.llan.ll.mit.edu:8080
+    insertafter: name=ICINGA
+
+- name: Install icinga specific libraries.
+  yum:
+    name:
+      - icinga-idoutils
+      - icinga2-ido-mysql 
+      - icingaweb2 
+      - icingacli 
+      - nagios-plugins-all
+      - sclo-php71-php-pecl-imagick
+
+- name: Starting icinga2 services
+  service: 
+    name: icinga2
+    state: started
+    enabled: yes
+
+- name: Starting php fpm services
+  service: 
+    name: rh-php71-php-fpm.service
+    state: started
+    enabled: yes
+
+- name: Reload apache2(httpd) daemon.
+  service:
+    name: httpd
+    state: restarted
+
+#- name: Create the postgresql database icingaweb_db
