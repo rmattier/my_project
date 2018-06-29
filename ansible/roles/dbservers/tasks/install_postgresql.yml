@@ -1,0 +1,10 @@
+---
+- name: Installing postgresql db.
+  yum:
+     name:
+       - postgresql-server
+       - postgresql
+
+#- name: Initialize postgresql database.
+#    command: /usr/bin/postgresql-setup initdb
+
