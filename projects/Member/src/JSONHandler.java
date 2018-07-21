@@ -34,7 +34,7 @@ public class JSONHandler {
             myMember.setStreet("53 Tiffany Drive");
             myMember.setCity("Randolph");
             myMember.setState("MA");
-            myMember.setZipcode("20368");
+            myMember.setZipCode("20368");
             myMember.setImagePath("/pictures/images/Rick_Mattier-jpg");
 
         }
@@ -124,7 +124,7 @@ public class JSONHandler {
                 member.setStreet(rs.getString(6));
                 member.setCity(rs.getString(7));
                 member.setState(rs.getString(8));
-                member.setZipcode(rs.getString(9));
+                member.setZipCode(rs.getString(9));
 
             }
 

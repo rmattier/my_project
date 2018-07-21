@@ -20,7 +20,7 @@ public class Member {
     public void setStreet(String st)            { this.street                           = st;               }
     public void setCity(String cty)             { this.city                             = cty;              }
     public void setState(String sta)            { this.state                            = sta;              }
-    public void setZipcode(String zip)          { this.zipCode                          = zip;              }
+    public void setZipCode(String zip)          { this.zipCode                          = zip;              }
     public void setImagePath(String image)      { this.imagePath                        = image;            }
 
     //Accessors
@@ -31,7 +31,7 @@ public class Member {
     public String getStreet()                   { return (street);                                          }
     public String getCity()                     { return (city);                                            }
     public String getState()                    { return (state);                                           }
-    public String getZipcode()                  { return (zipCode);                                         }
+    public String getZipCode()                  { return (zipCode);                                         }
     public String getImagePath()                { return (imagePath);                                       }
 
 

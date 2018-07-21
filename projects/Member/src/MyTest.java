@@ -8,7 +8,7 @@ public class MyTest {
             throws IOException {
         Member member           = new Member();
 
-        member.setId("1");x
+        member.setId("1");
         member.setFirstName("Rick");
         member.setLastName("Mattier El");
         member.setEmail("rick.mattier@ll.mit.edu");
@@ -16,7 +16,7 @@ public class MyTest {
         member.setStreet("53 Tiffany Drive");
         member.setCity("Randolph");
         member.setState("Massachusetts");
-        member.setZipcode("02368");
+        member.setZipCode("02368");
 
         ObjectMapper mapper     = new ObjectMapper();
 

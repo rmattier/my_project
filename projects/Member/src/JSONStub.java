@@ -12,7 +12,7 @@ public class JSONStub {
         member.setStreet("53 Tiffany Drive");
         member.setCity("Randolph");
         member.setState("Massachusetts");
-        member.setZipcode("02368");
+        member.setZipCode("02368");
 
         member.setImagePath("/images/cardinfo/Rick_Mattier.jpg");
 
