@@ -62,6 +62,12 @@
           <artifactId>hibernate-annotations</artifactId>
           <version>3.5.6-Final</version>
       </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-agroal</artifactId>
+          <version>5.3.3.Final</version>
+          <type>pom</type>
+      </dependency>
   </dependencies>
 </project>
 
