@@ -1,9 +1,25 @@
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "member")
 public class Member {
+    @Id
+    @Column(name = "id", unique = true)
     private String id;
+
+    @Column(name = "firstname", nullable = false)
     private String firstName;
+
+    @Column(name = "lastname", nullable = false)
     private String lastName;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
     private String street;
     private String city;
     private String state;
@@ -11,6 +27,12 @@ public class Member {
     private String imagePath        = "None";
 
     public Member() {}
+
+    public Member(String fname, String lname, String mail) {
+        this.firstName              = fname;
+        this.lastName               = lname;
+        this.email                  = mail;
+    }
 
     // Mutators
     public void setId(String ids)               { this.id                               = ids;              }

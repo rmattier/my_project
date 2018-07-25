@@ -1,4 +1,6 @@
 // import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,43 +61,44 @@ public class JSONHandler {
     }
 
     public String createMember(Member member) {
+        ObjectMapper mapper         = new ObjectMapper();
 
-        /* This code uses simple json libraries
-        JSONObject job          = new JSONObject();
+        ObjectNode customer         = mapper.createObjectNode();
 
-        job.put("FirstName", member.getFirstName());
-        job.put("LastName", member.getLastName());
-        job.put("EmailAddress", member.getEmail());
+        /* Customer Info
+        member.setId("1");
+        member.setFirstName("Rick");
+        member.setLastName("Mattier El");
+        member.setEmail("rick.mattier@ll.mit.edu");
+        member.setStreet("53 Tiffany Drive");
+        member.setCity("Randolph");
+        member.setState("Massachusetts");
+        member.setZipCode("02368");
 
-        // Below is address information
-        job.put("Street", member.getStreet());
-        job.put("City", member.getCity());
-        job.put("State", member.getState());
-        job.put("ZipCode", member.getZipcode());
-
-        // Below is the card image path where it's stored
-        job.put("ImagePath", member.getImagePath());
-
-        return (job.toJSONString());
+        customer.put("memberId", member.getId());
+        customer.put("firstname", member.getFirstName());
+        customer.put("lastname", member.getLastName());
+        customer.put("email", member.getEmail());
         */
 
-        String jsonstring = "";
+        ArrayNode address           = customer.putArray("Address");
+        ObjectNode addressInfo      = new ObjectMapper().createObjectNode();
+        addressInfo.put("Street", member.getStreet());
+        addressInfo.put("city", member.getCity());
+        addressInfo.put("state", member.getState());
+        addressInfo.put("zipcode", member.getZipCode());
 
+        address.add(addressInfo);
+        String jsonString       = "";
         try {
-
-            ObjectMapper mapper     = new ObjectMapper();
-            jsonstring              = mapper.writeValueAsString(member);
-
-            member                  = mapper.readValue(jsonstring, Member.class);
-            jsonstring              = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(member);
-
-
+            jsonString          = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(customer);
+            System.out.println(jsonString);
         }
-        catch (IOException ioe) {
-            System.out.println("IO Error: " + ioe);
+        catch (Exception e) {
+            System.out.println("Errors " + e);
         }
 
-        return (jsonstring);
+        return (jsonString);
     }
 
     private Member retrieveMember(String id)
