@@ -1,0 +1,50 @@
+---
+- postgresql_db:
+    name: icingaweb_db
+
+- postgresql_db:
+    name: icinga_ido
+
+- postgresql_user:
+    name: icinga
+    password: icinga
+
+- postgresql_privs:
+    db: icingaweb_db
+    role: icinga
+    objs: ALL_IN_SCHEMA
+    privs: SELECT,INSERT,DELETE,UPDATE
+
+- postgresql_privs:
+    db: icinga_ido
+    role: icinga
+    objs: ALL_IN_SCHEMA
+    privs: SELECT,INSERT,DELETE,UPDATE
+
+- name: inserting ido schema to icinga_ido database
+  shell: "psql -U icinga icinga_ido < /usr/share/icinga2-ido-pgsql/schema/pgsql.sql"
+
+- name: Ensuring ido is configured
+  lineinfile:
+    path: /etc/icinga2/features-enabled/ido-pgsql.conf
+    regexp: '^//user'
+    line: 'user = "icinga"'
+    state: present
+
+  lineinfile:
+    path: /etc/icinga2/features-enabled/ido-pgsql.conf
+    regexp: '^//?password'
+    line: 'password = "icinga"'
+    state: present
+
+  lineinfile:
+    path: /etc/icinga2/features-enabled/ido-pgsql.conf
+    regexp: '^//?host'
+    line: 'host = "localhost"'
+    state: present
+
+  lineinfile:
+    path: /etc/icinga2/features-enabled/ido-pgsql.conf
+    regexp: '^//?database'
+    line: 'database = "icinga_ido"'
+    state: present

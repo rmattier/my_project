@@ -4,10 +4,16 @@
   yum:
     name: "epel-release"
     state: present
+
+- name: Make sure centos scl-rh repo is installed.
+  yum:
+    name: "centos-release-scl-rh"
+    state: present
+
 - name: Install php components.
   yum: 
     name: 
-      - rh-php71-php-mysqlnd
+      #- rh-php71-php-mysqlnd
       - rh-php71-php-cli
       - rh-php71-php-common 
       - rh-php71-php-fpm 
@@ -18,6 +24,7 @@
       - rh-php71-php-gd 
       - rh-php71-php-pdo 
       - rh-php71-php-mbstring 
+      - php-pecl-imagick
 
 - name: Change the timezone in php.ini file to America/New_York
   lineinfile: 
@@ -28,9 +35,8 @@
 - name: Copying icinga2 yum repo package.
   copy:
     src: /etc/ansible/roles/icinga2/files/icinga-rpm-release-7-latest.noarch.rpm
-    dest: "/tmp/icinga-rpm-release-7-latest.noarch.rpm"
-    mode: "0755"
-    state: present
+    dest: /tmp/icinga-rpm-release-7-latest.noarch.rpm
+    mode: 0755
 
 - name: Installing the icinga2 yum repo.
   yum:  
@@ -47,11 +53,12 @@
   yum:
     name:
       - icinga-idoutils
-      - icinga2-ido-mysql 
+      - icinga2-ido-mysql
+      - icinga2-ido-pgsql
       - icingaweb2 
       - icingacli 
       - nagios-plugins-all
-      - sclo-php71-php-pecl-imagick
+      #- sclo-php71-php-pecl-imagick
 
 - name: Starting icinga2 services
   service: 
@@ -70,4 +77,5 @@
     name: httpd
     state: restarted
 
-#- name: Create the postgresql database icingaweb_db
+- name: Create the icinga2 certificates.
+  command: /sbin/icinga2 api setup

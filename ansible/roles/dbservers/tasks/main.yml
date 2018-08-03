@@ -1,2 +1,3 @@
 ---
 - include: install_postgresql.yml
+- include: create_icinga_db.yml

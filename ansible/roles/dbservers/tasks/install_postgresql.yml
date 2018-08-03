@@ -4,7 +4,46 @@
      name:
        - postgresql-server
        - postgresql
+       - python-psycopg2
 
-#- name: Initialize postgresql database.
-#    command: /usr/bin/postgresql-setup initdb
+#- name: Initialize the postgresql database.
+#    command: /sbin/service postgresql initdb
+#    creates: /var/lib/pgsql/data/postgresql.conf
 
+- name: Start PostgreSQL and enable at boot
+  systemd: 
+    name: postgresql
+    enabled: yes
+
+- name: Ensure PostgreSQL is listening on all localhost
+  lineinfile: 
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^#?listen_addresses\s*='
+    line: "listen_addresses = '*'"
+    state: present
+  #notify: restart postgresql
+
+- lineinfile:
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^#port'
+    line: "port = 5432"
+    state: present
+    
+
+- lineinfile: 
+    path: /var/lib/pgsql/data/pg_hba.conf
+    regexp: 'host\s+all\s+all\s+127.0.0.1/32\s+md5'
+    line: 'host all all 127.0.0.1/32 md5'
+    insertbefore: BOF
+  #notify: restart postgresql
+
+- name: Restart PostgreSQL.
+  systemd: 
+    name: postgresql
+    state: restarted
+
+#handlers:
+#   - name: restart postgresql
+#     systemd: 
+#       name: postgresql 
+#       state: restarted
