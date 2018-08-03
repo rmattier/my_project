@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/projects/Member/Member.iml" filepath="$PROJECT_DIR$/projects/Member/Member.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/test/WEB-INF/WEB-INF.iml" filepath="$PROJECT_DIR$/java/test/WEB-INF/WEB-INF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/new_app/new_app.iml" filepath="$PROJECT_DIR$/new_app/new_app.iml" />
+    </modules>
+  </component>
+</project>

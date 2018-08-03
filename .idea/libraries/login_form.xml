@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="login-form">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/login/login-form.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
