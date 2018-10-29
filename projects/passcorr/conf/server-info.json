@@ -20,7 +20,8 @@
     "file-config": [
         {
             "dhcp-file-name": "/etc/dhcpd/dhcpd.conf",
-            "pxe-file-path": "/var/lib/tftpboot/pxelinux.cfg/"
+            "pxe-file-path": "/var/lib/tftpboot/pxelinux.cfg/",
+            "version": "0.0.1"
         }
     ]
 }

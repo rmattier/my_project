@@ -30,13 +30,22 @@ lens = len(y['servers'])
 
 # This loop will send the appropriate information to the functions and build multiple 
 # system/server files.
+
+# system-configuration variables.
+dhcpFileName = y['file-config'][0]['dhcp-file-name']
+pxeFileName = y['file-config'][0]['pxe-file-path']
+
+# The below function calls will build the appropriate files.
+updateDhcpFile(dhcpFileName)
+createPxeFile(pxeFileName)
+
 while count < lens:
     print ("Hostname: %s" % y['servers'][count]['server-name'])
 
    # First we will build the pxeboot file.  We will have to have a generic template for the dhcpd.conf file
    # And another template for the pxeboot files.
-   
-    
+
+
     
     count += 1
 
