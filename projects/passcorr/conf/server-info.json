@@ -1,0 +1,26 @@
+{
+    "servers": [
+        {
+            "server-name": "display-1",
+            "ip-address": "192.168.2.45"
+        },
+        {
+            "server-name": "display-2",
+            "ip-address": "192.168.2.47"
+        },
+        {
+            "server-name": "display-3",
+            "ip-address": "192.168.2.15"
+        },
+        {
+            "server-name": "sr-1",
+            "ip-address": "192.168.2.11"
+        } 
+    ],
+    "file-config": [
+        {
+            "dhcp-file-name": "/etc/dhcpd/dhcpd.conf",
+            "pxe-file-path": "/var/lib/tftpboot/pxelinux.cfg/"
+        }
+    ]
+}
