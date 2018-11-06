@@ -1,0 +1,46 @@
+{
+    "servers": [
+        {
+            "server-name": "display-1",
+            "ip-address": "192.168.2.45",
+            "mac-address": "AA:BB:CC:DD:EE:FFyy"
+        },
+        {
+            "server-name": "display-2",
+            "ip-address": "192.168.2.47",
+            "mac-address": "AA:BB:CC:DD:EE:FA"
+        },
+        {
+            "server-name": "display-3",
+            "ip-address": "192.168.2.15",
+            "mac-address": "AA:BB:CC:DD:EE:FB"
+        },
+        {
+            "server-name": "sr-1",
+            "ip-address": "192.168.2.11",
+            "mac-address": "AA:BB:CC:DD:EE:FC"
+        }, 
+        {
+            "server-name": "sr-2",
+            "ip-address": "192.168.2.19",
+            "mac-address": "AA:BB:CC:DD:EE:FD"
+        } 
+    ],
+    "file-config": [
+        {
+            "dhcp-file-name": "/tmp/dhcpd.conf",
+            "pxe-file-path": "/var/lib/tftpboot/pxelinux.cfg/",
+            "version": "0.0.1"
+        }
+    ],
+    "dhcp-info": [
+        {
+            "dhcp-subnet": "192.168.200.0",
+            "dhcp-netmask": "255.255.255.0",
+            "dhcp-router": "192.168.200.1",
+            "dhcp-range-start" : "192.168.200.10", 
+            "dhcp-range-end": "192.168.200.250"
+        }
+    ]
+    
+}
