@@ -1,0 +1,64 @@
+---
+- name: Change ssh timeout interval
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#ClientAliveInterval 0'
+    replace: ClientAliveInterval 600
+
+- name: Change ssh timeout interval
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#ClientAliveCountMax 3'
+    replace: ClientAliveCountMax 0
+
+- name: Remove comment from IgnoreRhosts
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#IgnoreRhosts'
+    replace: IgnoreRhosts
+
+- name: Change IgnoreUserKnownHosts yes
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#IgnoreUserKnownHosts no'
+    replace: IgnoreUserKnownHosts yes
+
+- name: Change IgnoreUserKnownHosts yes
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#HostbasedAuthentication no'
+    replace: HostbasedAuthentication no
+
+- name: Adding RhostsRSAAuthentication parameter
+  lineinfile: 
+    path: /etc/ssh/sshd_config
+    line: 'RhostsRSAAuthentication no'
+
+- name: Allow X11 forwarding
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#X11Forwarding'
+    replace: X11Forwarding yes
+
+- name: Remove ssh root login access
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#PermitRootLogin'
+    replace: PermitRootLogin no
+
+- name: Add Banner warning option for ssh login.
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#Banner none'
+    replace: Banner /etc/issue
+
+- name: Do not allow SSH Environment Options
+  replace: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#PermitUserEnvironment no '
+    replace: PermitUserEnvironment no 
+
+- name: Restart sshd daemon
+  systemd:
+     name: sshd
+     state: restarted

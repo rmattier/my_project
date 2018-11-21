@@ -1,0 +1,11 @@
+---
+- yum:
+    name: aide
+    state: latest
+
+- cron:
+    name: "aide check"
+    minute: "05"
+    hour: "04"
+    weekday: "0"
+    job: "/usr/sbin/aide --check"

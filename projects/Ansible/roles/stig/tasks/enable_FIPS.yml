@@ -1,0 +1,11 @@
+---
+- command: /usr/sbin/dracut -f
+
+- lineinfile: 
+    path: /etc/default/grub
+    backup: True
+    backrefs: True
+    state: present
+    regexp: '^GRUB_CMDLINE_LINUX="'
+    insertafter: 'quiet'
+    line: 'rd.shell=0 fips=1'

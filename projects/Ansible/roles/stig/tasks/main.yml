@@ -1,0 +1,12 @@
+# roles/stig/tasks/main.yml
+- name: Ensure gpgcheck is enabled for yum.
+  import_tasks: gpgcheck.yml
+
+- name: Install AIDE package.
+  import_tasks: install_aide.yml
+
+- name: Enable FIPS mode in grub.
+  import_tasks: enable_FIPS.yml
+
+- name: Secure gdm configuration.
+  import_tasks: gdm_config.yml

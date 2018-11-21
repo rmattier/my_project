@@ -1,0 +1,8 @@
+---
+- lineinfile: 
+    path: /etc/gdm/custom.conf
+    backup: True
+    backrefs: True
+    state: present
+    regexp: '^[daemon]'
+    line: 'rd.shell=0 fips=1'
